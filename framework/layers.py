@@ -12,7 +12,14 @@ class Parameter(object):
 
 
 class Module(object):
-    pass
+    def forward(self):
+        raise NotImplementedError
+
+    def backward(self):
+        raise NotImplementedError
+
+    def get_param(self):
+        raise NotImplementedError
 
 
 class Linear(Module):

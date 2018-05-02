@@ -34,7 +34,7 @@ def to_onehot(labels, nb_classes):
 def getAccuracy(true_labels, pred_labels, one_hot=False):
 
     if one_hot:
-        eq = np.equal(np.max(true_labels, axis=1), 
+        eq = np.equal(np.max(true_labels, axis=1),
                       np.sum(pred_labels, axis=1)).astype("int")
     else:
         eq = np.equal(true_labels, pred_labels).astype("int")

@@ -1,5 +1,6 @@
 class Optimizer(object):
-    pass
+    def apply(self):
+        raise NotImplementedError
 
 
 class SGD(Optimizer):

@@ -2,7 +2,14 @@ from torch import FloatTensor, sigmoid, tanh, max
 
 
 class Activations(object):
-    pass
+    def forward(self):
+        raise NotImplementedError
+
+    def backward(self):
+        raise NotImplementedError
+
+    def get_param(self):
+        raise NotImplementedError
 
 
 class ReLU(Activations):

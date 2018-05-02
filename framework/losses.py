@@ -1,7 +1,12 @@
 from torch import sum
 
+
 class Loss(object):
-    pass
+    def loss(self):
+        raise NotImplementedError
+
+    def dloss(self):
+        raise NotImplementedError
 
 
 class MSE(Loss):
