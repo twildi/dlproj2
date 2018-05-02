@@ -14,14 +14,16 @@ class SGD(Optimizer):
     eta : float
         Step size.
     """
-    def __init__(self, eta=1e-3):
+    def __init__(self, eta=1e-3, lamb=0.5):
         self.eta = eta
+        self.lamb = lamb
 
     def apply(self, layers):
         for layer in layers:
             param = layer.get_param()
             for p in param:
-                p.value -= self.eta * p.gradient
+                p.m = self.lamb*p.m + self.eta * p.gradient
+                p.value -= p.m
 
 
 class Adam(Optimizer):
@@ -40,10 +42,8 @@ class Adam(Optimizer):
         for layer in layers:
             param = layer.get_param()
             for p in param:
-                new_g = p.gradient
-                new_m = self.rho1*p.m + (1-self.rho1)*new_g
-                new_v = self.rho2*p.v + (1-self.rho2)*new_g**2
-                p.g = new_g
+                new_m = self.rho1*p.m + (1-self.rho1)*p.gradient
+                new_v = self.rho2*p.v + (1-self.rho2)*p.gradient**2
                 p.m = new_m
                 p.v = new_v
                 
