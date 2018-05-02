@@ -24,8 +24,8 @@ if __name__ == "__main__":
     sig1 = Sigmoid()
     model = Sequential([lin1, relu1, lin2, relu2, lin3, sig1])
     
-    loss_algo = MSE();
-    optimizer_algo = Adam()
+    loss_algo = MSE()
+    optimizer_algo = SGD()
     # Training model
     epochs_per_step = 1
     for e in range(0, 100, epochs_per_step):
@@ -48,5 +48,4 @@ if __name__ == "__main__":
                     batch_size=16,
                     optimizer=optimizer_algo,
                     loss=loss_algo,
-                    epochs=epochs_per_step,
-                    verbose = False)
+                    epochs=epochs_per_step)

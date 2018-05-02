@@ -5,11 +5,12 @@ import numpy as np
 class Parameter(object):
     """
     Container for the Module parameters, contains value and gradient.
+    If ADAM : m,u standard parameters
+    if SGD :  the m parameters is used for the momentum
     """
     def __init__(self, value=[], gradient=[]):
         self.value = value
         self.gradient = gradient
-        self.g = 0
         self.m = 0
         self.v = 0
 
