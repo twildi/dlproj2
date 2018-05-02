@@ -9,6 +9,9 @@ class Parameter(object):
     def __init__(self, value=[], gradient=[]):
         self.value = value
         self.gradient = gradient
+        self.g = 0
+        self.m = 0
+        self.v = 0
 
 
 class Module(object):
