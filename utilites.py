@@ -29,3 +29,14 @@ def to_onehot(labels, nb_classes):
     labels_onehot = np.zeros((nb_samples, nb_classes))
     labels_onehot[np.arange(nb_samples), labels] = 1
     return labels_onehot
+
+
+def getAccuracy(true_labels, pred_labels, one_hot=False):
+
+    if one_hot:
+        eq = np.equal(np.max(true_labels, axis=1), 
+                      np.sum(pred_labels, axis=1)).astype("int")
+    else:
+        eq = np.equal(true_labels, pred_labels).astype("int")
+
+    return np.sum(eq)/len(eq)
