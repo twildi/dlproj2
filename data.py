@@ -1,6 +1,8 @@
-import collections
-import numpy as np
+from framework import FloatTensor as Tensor
 from utilites import to_onehot
+import collections
+import torch
+import math
 
 Dataset = collections.namedtuple('Dataset', ['data', 'labels'])
 Datasets = collections.namedtuple('Datasets', ['train', 'validation', 'test'])
@@ -32,18 +34,18 @@ def loadDataSet(name=None, one_hot=True, train_size=1000, test_size=1000):
     """
     if name is None:
         # Dataset generation
-        test_data = np.random.rand(test_size, 2)
-        train_data = np.random.rand(train_size, 2)
-        test_labels = np.linalg.norm(test_data - 0.5, axis=1) < 1/(2*np.pi)**0.5
-        train_labels = np.linalg.norm(train_data - 0.5, axis=1) < 1/(2*np.pi)**0.5
+        test_data = torch.rand(test_size, 2)
+        train_data = torch.rand(train_size, 2)
+        test_labels = torch.norm(test_data - 0.5, 2, 1) < 1/(2*math.pi)**0.5
+        train_labels = torch.norm(train_data - 0.5, 2, 1) < 1/(2*math.pi)**0.5
         # Boolean to int conversion
-        test_labels = test_labels.astype('int')
-        train_labels = train_labels.astype('int')
+        test_labels = test_labels.float()
+        train_labels = train_labels.float()
     elif name == "simple":
-        test_data = np.array([[1, 1], [-1, -1]])
-        train_data = np.array([[0.8, 0.9], [-0.8, -0.7]])
-        test_labels = np.array([0, 1])
-        train_labels = np.array([0, 1])
+        test_data = Tensor([[1, 1], [-1, -1]])
+        train_data = Tensor([[0.8, 0.9], [-0.8, -0.7]])
+        test_labels = Tensor([0, 1])
+        train_labels = Tensor([0, 1])
 
     if one_hot:
         # Convert labels to one-hot encoding

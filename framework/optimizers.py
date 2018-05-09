@@ -1,4 +1,4 @@
-import numpy as np
+from torch import sqrt
 
 class Optimizer(object):
     def apply(self):
@@ -13,8 +13,10 @@ class SGD(Optimizer):
     ----------
     eta : float
         Step size.
+    lamb : float
+        Momentum.
     """
-    def __init__(self, eta=1e-3, lamb=0.5):
+    def __init__(self, eta=1e-2, lamb=0.5):
         self.eta = eta
         self.lamb = lamb
 
@@ -22,7 +24,7 @@ class SGD(Optimizer):
         for layer in layers:
             param = layer.get_param()
             for p in param:
-                p.m = self.lamb*p.m + self.eta * p.gradient
+                p.m = self.lamb*p.m + self.eta*p.gradient
                 p.value -= p.m
 
 
@@ -30,7 +32,7 @@ class Adam(Optimizer):
     """
     Adam optimzer.
     """
-    def __init__(self,eta=1e-3,rho1=0.9,rho2=0.999,delta=1e-8):
+    def __init__(self, eta=1e-3, rho1=0.9, rho2=0.999, delta=1e-8):
         self.eta = eta
         self.rho1 = rho1
         self.rho2 = rho2
@@ -50,5 +52,5 @@ class Adam(Optimizer):
                 m_hat = p.m/(1-self.rho1**self.t)
                 v_hat = p.v/(1-self.rho2**self.t)
                 
-                p.value -= self.eta*m_hat/(np.sqrt(v_hat)+self.delta)
+                p.value -= self.eta*m_hat/(sqrt(v_hat)+self.delta)
                 

@@ -27,8 +27,7 @@ class Module(object):
 
 
 class Linear(Module):
-    """
-    Linear/fully connected module.
+    """Linear/fully connected module.
 
     Parameters
     ----------

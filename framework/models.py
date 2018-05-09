@@ -86,4 +86,4 @@ class Sequential(object):
             # Forward Pass
             output = cat((output, self.forward(batch)), dim=0)
 
-        return output
+        return output.squeeze()
