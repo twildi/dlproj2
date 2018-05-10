@@ -6,34 +6,40 @@ class Optimizer(object):
 
 
 class SGD(Optimizer):
-    """
-    Gradient descent optimizer.
+    """Gradient descent optimizer.
 
     Parameters
     ----------
-    eta : float
-        Step size.
+    lr : float
+        Learning rate (i.e. step size).
     lamb : float
         Momentum.
     """
-    def __init__(self, eta=1e-2, lamb=0.5):
-        self.eta = eta
+    def __init__(self, lr=1e-2, lamb=0.5):
+        self.lr = lr
         self.lamb = lamb
 
     def apply(self, layers):
         for layer in layers:
             param = layer.get_param()
             for p in param:
-                p.m = self.lamb*p.m + self.eta*p.gradient
+                p.m = self.lamb*p.m + self.lr*p.gradient
                 p.value -= p.m
 
 
 class Adam(Optimizer):
+    """Adam optimzer.
+    
+    Parameters
+    ----------
+    lr : float
+        Learning rate (i.e. step size).
+    rho1 : float
+    rho2 : float
+    delta : float
     """
-    Adam optimzer.
-    """
-    def __init__(self, eta=1e-3, rho1=0.9, rho2=0.999, delta=1e-8):
-        self.eta = eta
+    def __init__(self, lr=1e-3, rho1=0.9, rho2=0.999, delta=1e-8):
+        self.lr = lr
         self.rho1 = rho1
         self.rho2 = rho2
         self.delta = delta
@@ -52,5 +58,5 @@ class Adam(Optimizer):
                 m_hat = p.m/(1-self.rho1**self.t)
                 v_hat = p.v/(1-self.rho2**self.t)
                 
-                p.value -= self.eta*m_hat/(sqrt(v_hat)+self.delta)
+                p.value -= self.lr*m_hat/(sqrt(v_hat)+self.delta)
                 

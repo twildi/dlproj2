@@ -25,10 +25,8 @@ def plotLinearSeperator(w, b):
 
 
 def to_onehot(labels, nb_classes):
-    nb_samples = len(labels)
-    labels_onehot = torch.zeros((nb_samples, nb_classes))
-    labels_onehot[range(nb_samples), labels] = 1
-    return labels_onehot
+    labels_onehot = labels.view(-1, 1) == torch.arange(nb_classes).view(1, -1)
+    return labels_onehot.float()
 
 
 def getAccuracy(true_labels, pred_labels, one_hot=False):
