@@ -47,7 +47,7 @@ class Sequential(object):
             total_loss = 0
             accuracy = 0
             if verbose:
-                print("Epoch {0:d}/{1:d}".format(e+1, epochs))
+                print("\nEpoch {0:d}/{1:d}".format(e+1, epochs))
 
             for batch_x, batch_y in zip(batches_x, batches_y):
                 # Forward Pass

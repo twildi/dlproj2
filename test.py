@@ -2,8 +2,7 @@ from framework.models import Sequential
 from framework.activations import ReLU, Sigmoid
 from framework.layers import Linear
 from framework.losses import MSE
-from framework.optimizers import SGD, Adam
-from framework import FloatTensor as Tensor
+from framework.optimizers import Adam,  # SGD
 import matplotlib.pyplot as plt
 import utilites
 from data import loadDataSet
@@ -23,34 +22,28 @@ if __name__ == "__main__":
     lin4 = Linear(25, 2, std=0.1)
     sig1 = Sigmoid()
     model = Sequential([lin1, relu1, lin2, relu2, lin3, relu3, lin4, sig1])
-    
-    loss_algo = MSE()
-    # optimizer_algo = SGD(lr=5e-2, lamb=0.2)
-    optimizer_algo = Adam()
+
+    loss = MSE()
+    optimizer = Adam()
 
     # Training model
-    epochs_per_step = 1
-    for e in range(0, 500, epochs_per_step):
-        # Testing model on training data
-        pred_labels = model.predict(x=Tensor(data.test.data)).round().int()
+    model.train(x=data.train.data,
+                y=data.train.labels,
+                batch_size=8,
+                optimizer=optimizer,
+                loss=loss,
+                epochs=100)
 
-        # Printing test accuracy
-        acc = utilites.getAccuracy(data.test.labels.int(), 
-                                   pred_labels, 
-                                   one_hot=True)
-        print("Test Accuracy = {0:.2f}%".format(acc*100))
+    # Testing model on test data
+    test_pred_labels = model.predict(x=data.test.data).round().int()
+    train_pred_labels = model.predict(x=data.train.data).round().int()
 
-        # PLoting
-        utilites.plot2Dset(data.test.data, 
-                           data.test.labels.max(1)[1],
-                           pred_labels.max(1)[1])
-        # utilites.plotLinearSeperator(lin1.w.value, lin1.b.value)
-        plt.pause(0.1)
-
-        # Training model
-        model.train(x=data.train.data,
-                    y=data.train.labels,
-                    batch_size=8,
-                    optimizer=optimizer_algo,
-                    loss=loss_algo,
-                    epochs=epochs_per_step)
+    # Printing test accuracy
+    test_acc = utilites.getAccuracy(data.test.labels.int(),
+                                    test_pred_labels,
+                                    one_hot=True)
+    train_acc = utilites.getAccuracy(data.train.labels.int(),
+                                     train_pred_labels,
+                                     one_hot=True)
+    print("Train Accuracy = {0:.2f}%, Test Accuracy = {1:.2f}%".
+          format(train_acc*100, test_acc*100))
