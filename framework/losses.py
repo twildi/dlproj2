@@ -28,7 +28,7 @@ class MSE(Loss):
         The MSE loss between the 'output' ans the true 'labels'. This is a
         Tensor of shape (nb_samples, 1).
         """
-        return sum((output - labels)**2, dim=1)/labels.shape[1]
+        return sum((output - labels)**2, dim=1)/labels.size()[1]
 
     def dloss(self, output, labels):
         """Derivative of the loss as function of ouput of the network.
@@ -46,4 +46,4 @@ class MSE(Loss):
         The derivative of the loss with respect to the input. This a Tensor of
         the same shape as 'output'.
         """
-        return 2*(output - labels)/labels.shape[1]
+        return 2*(output - labels)/labels.size()[1]

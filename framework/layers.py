@@ -1,5 +1,4 @@
-from torch import FloatTensor
-import numpy as np
+from torch import normal, zeros, ones
 
 
 class Parameter(object):
@@ -39,8 +38,10 @@ class Linear(Module):
     def __init__(self, dim_in, dim_out, std=0.05):
         self.dim_in = dim_in
         self.dim_out = dim_out
-        self.w = Parameter(FloatTensor(std*np.random.randn(dim_in, dim_out)))
-        self.b = Parameter(FloatTensor(np.zeros(dim_out)))
+        self.w = zeros(dim_in, dim_out)
+        self.w = Parameter(normal(zeros(dim_in, dim_out),
+                                  std * ones(dim_in, dim_out)))
+        self.b = Parameter(zeros(dim_out))
 
     def forward(self, input):
         assert input.dim() == 2
