@@ -3,13 +3,10 @@ from framework.activations import ReLU, Sigmoid
 from framework.layers import Linear
 from framework.losses import MSE
 from framework.optimizers import Adam  # SGD
-import matplotlib.pyplot as plt
 import utilites
 from data import loadDataSet
 
 if __name__ == "__main__":
-    plt.ion()
-
     data = loadDataSet(one_hot=True)
 
     # Create simple linear calssifier model
