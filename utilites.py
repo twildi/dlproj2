@@ -25,11 +25,41 @@ import torch
 
 
 def to_onehot(labels, nb_classes):
+    """ Converts integer labels to one-hot encoding.
+
+    Parameters
+    ----------
+    labels: int vector
+        Vector cotaining the labels to convert.
+    nb_classes: int
+        Number of possible classes.
+
+    Returns
+    -------
+    A tensor of size (nb_samples, nb_classes) containing the one-hot labels.
+    """
     labels_onehot = labels.view(-1, 1) == torch.arange(nb_classes).view(1, -1)
     return labels_onehot.float()
 
 
 def getAccuracy(true_labels, pred_labels, one_hot=False):
+    """Calculates accuracy based on true labels and labels predicted by a
+    model.
+
+    Parameters
+    ----------
+    true_labels: int Tensor
+        Tensor of true labels, 2d if one-hot encoding is used, 1d otherwise.
+    pred_labels: int Tensor
+        Tensor of predicted labels, 2d if one-hot encoding is used,
+        1d otherwise.
+    one_hot: bool
+        Whether one-hot encoding is used or not.
+
+    Returns
+    -------
+    The accuracy as a float between 0 and 1.
+    """
 
     if one_hot:
         eq = torch.eq(true_labels.max(1)[1], pred_labels.max(1)[1]).int()

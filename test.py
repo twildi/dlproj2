@@ -2,7 +2,7 @@ from framework.models import Sequential
 from framework.activations import ReLU, Sigmoid
 from framework.layers import Linear
 from framework.losses import MSE
-from framework.optimizers import Adam,  # SGD
+from framework.optimizers import Adam  # SGD
 import matplotlib.pyplot as plt
 import utilites
 from data import loadDataSet

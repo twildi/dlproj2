@@ -31,6 +31,26 @@ class Sequential(object):
 
     def train(self, x, y, optimizer, loss, batch_size=1, epochs=1,
               verbose=True):
+        """Trains the model over a set number of epochs using a specified
+        training data, optimizer and loss function and batch size.
+
+        Parameters
+        ----------
+        x: FloatTensor
+            Input training data.
+        y: FloatTensor
+            Traing labels.
+        optmizer: Optimizer object
+            This an instance of the optizer that will be used to train the
+            model.
+        loss: Loss object
+            The is an instance of the loss function that will be used to train
+            the model.
+        batch_size: int
+            Batch size.
+        epochs: int
+            Number of epochs to train over.
+        """
 
         nb_samples = x.shape[0]
 

@@ -9,13 +9,13 @@ Datasets = collections.namedtuple('Datasets', ['train', 'validation', 'test'])
 
 
 def loadDataSet(name=None, one_hot=True, train_size=1000, test_size=1000):
-    """ Creates a 2D, 2 class dataset. 
-    
-    If the name is not menitioned, the 
-    dataset is on [0, 1]**2 with label 1 inside of the circle of radius
-    1/(2*np.pi)**0.5 centered on (0.5,0.5). If the name is "simple", the data
-    set is a simple 2 point set with labels 0 and 1.
-    
+    """ Creates a 2D, 2 class dataset.
+
+    If the name is not menitioned, the dataset is on [0, 1]**2 with label 1
+    inside of the circle of radius 1/(2*np.pi)**0.5 centered on (0.5,0.5).
+    If the name is "simple", the data set is a simple 2 point set with
+    labels 0 and 1.
+
     Parameters
     ----------
     name : str
@@ -26,11 +26,10 @@ def loadDataSet(name=None, one_hot=True, train_size=1000, test_size=1000):
         Number of samples in training set.
     test_size : int
         Number of samples in test set.
-    
+
     Returns
     -------
     A named tuple of type 'Datasets' containing the dataset.
-    
     """
     if name is None:
         # Dataset generation
